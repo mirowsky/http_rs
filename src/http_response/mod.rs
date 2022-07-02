@@ -1,1 +1,2 @@
-pub mod http_response_parser;
+pub mod parser;
+pub mod response;
