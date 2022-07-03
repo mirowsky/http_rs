@@ -8,10 +8,6 @@ lazy_static! {
     static ref BODY_REGEX: Regex = Regex::new(r"(?im)^\s*\{{1}[\s\S]*\}{1}$").unwrap();
 }
 
-pub fn remove_ascii_characters(input: &str) -> String {
-    input.chars().filter(|c| c.is_alphanumeric()).collect()
-}
-
 pub fn body_parser(raw_response: &str) -> Result<HashMap<String, String>> {
     let body = BODY_REGEX
         .find(raw_response)
@@ -29,7 +25,7 @@ pub fn body_parser(raw_response: &str) -> Result<HashMap<String, String>> {
             let mut s = s.splitn(2, ':');
             let key = s.next().unwrap().trim();
             let value = s.next().unwrap().trim();
-            (remove_ascii_characters(key), remove_ascii_characters(value))
+            (remove_non_alphanumeric(key), remove_non_alphanumeric(value))
         })
         .collect::<HashMap<_, _>>();
 
@@ -37,9 +33,21 @@ pub fn body_parser(raw_response: &str) -> Result<HashMap<String, String>> {
 
     Ok(HashMap::new())
 }
+
+fn remove_non_alphanumeric(input: &str) -> String {
+    input.chars().filter(|c| c.is_alphanumeric()).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_remove_non_alphanumeric() {
+        assert_eq!(remove_non_alphanumeric("Hello World"), "HelloWorld");
+
+        assert_eq!(remove_non_alphanumeric(r"'Hello': 'World'"), "HelloWorld");
+    }
 
     #[test]
     fn test_body_parser() {
