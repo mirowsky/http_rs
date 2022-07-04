@@ -1,3 +1,5 @@
+#[allow(unused)]
+
 pub mod response {
     pub const RAW_RESPONSE_MOCK: &str = r#"HTTP/1.1 200 OK
 Content-Type: application/json
