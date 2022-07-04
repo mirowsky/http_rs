@@ -5,7 +5,7 @@ use lazy_static::lazy_static;
 use regex::Regex;
 
 lazy_static! {
-    static ref BODY_REGEX: Regex = Regex::new(r"(?im)^\s*\{{1}[\s\S]*\}{1}$").unwrap();
+    pub static ref BODY_REGEX: Regex = Regex::new(r"(?im)^\s*\{{1}[\s\S]*\}{1}$").unwrap();
 }
 
 pub fn body_parser(raw_response: &str) -> Result<HashMap<String, String>> {
@@ -40,7 +40,7 @@ fn remove_non_alphanumeric(input: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use crate::http_parser::mocks::RAW_RESPONSE_MOCK;
+    use crate::http_parser::mocks::response::RAW_RESPONSE_MOCK;
 
     use super::*;
 

@@ -36,7 +36,7 @@ pub fn body_parser_alt(raw_response: &str) -> Result<HashMap<String, String>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::http_parser::mocks::RAW_RESPONSE_MOCK;
+    use crate::http_parser::mocks::response::RAW_RESPONSE_MOCK;
 
     use super::*;
     #[test]
