@@ -1,12 +1,7 @@
+use color_eyre::Result;
 use std::collections::HashMap;
 
-use color_eyre::Result;
-use lazy_static::lazy_static;
-use regex::Regex;
-
-lazy_static! {
-    pub static ref BODY_REGEX: Regex = Regex::new(r"(?im)^\s*\{{1}[\s\S]*\}{1}$").unwrap();
-}
+use crate::http_parser::regex::BODY_REGEX;
 
 pub fn body_parser(raw_response: &str) -> Result<HashMap<String, String>> {
     let body = BODY_REGEX
