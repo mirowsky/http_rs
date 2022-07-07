@@ -1,3 +1,4 @@
+#[derive(Clone, Eq, PartialEq)]
 pub enum HttpMethod {
     Options,
     Get,
