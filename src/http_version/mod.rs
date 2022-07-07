@@ -7,3 +7,9 @@ pub enum HttpVersion {
     Http30,
     NotHttp,
 }
+
+impl Default for HttpVersion {
+    fn default() -> Self {
+        HttpVersion::Http20
+    }
+}
